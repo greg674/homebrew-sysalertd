@@ -6,11 +6,10 @@ class Sysalertd < Formula
     version "25.0303.1"
 
     def install
-        bin.install Dir["*"]
-        Dir["#{bin}/*"].each do |f|
-        system "codesign", "--force", "--sign", "-", f if File.file?(f) && File.executable?(f)
-        end
-      end
+        bin.install "sysalertd"
+        ohai "Signing binary..."
+        system "codesign", "--force", "--sign", "-", bin/"sysalertd"
+    end
 
     def caveats
         <<~EOS
